@@ -1,6 +1,11 @@
 import user from '../fixtures/user.json';
 import registrationPage from "../support/Pages/RegistrationPage";
-import {dismissWelcomePopup} from "../support/helper";
+import {
+  addProductToBasketAndMakeOrder,
+  dismissWelcomePopup,
+  findProductBySearchAndMakeOrder,
+  registerNewUserAndLogin
+} from "../support/helper";
 import loginPage from "../support/Pages/LoginPage";
 import mainPage from "../support/Pages/MainPage";
 import basketPage from "../support/Pages/BasketPage";
@@ -9,6 +14,7 @@ import createAddressPage from "../support/Pages/CreateAddressPage";
 import selectAddressPage from "../support/Pages/SelectAddressPage";
 import deliveryMethodPage from "../support/Pages/DeliveryMethodPage";
 import paymentPage from "../support/Pages/PaymentPage";
+import orderSummaryPage from "../support/Pages/OrderSummaryPage";
 
 describe('Registration and Login', () => {
   it('Register User', () => {
@@ -25,30 +31,11 @@ describe('Registration and Login', () => {
     loginPage.verifyUserLoggedIn();
   })
 
-  it('Add product to cart and submit order', () => {
-    loginPage.visit();
-    dismissWelcomePopup();
-    loginPage.submitLoginForm(user.email, user.password);
-    loginPage.verifyUserLoggedIn();
+  it('Add Product to basket and make order', () => {
+    addProductToBasketAndMakeOrder('Carrot Juice (1000ml)');
+  })
 
-    mainPage.visit();
-    mainPage.addProductToBasket('Carrot Juice (1000ml)');
-    mainPage.verifyProductAddedToBasket('Carrot Juice (1000ml)');
-
-    basketPage.visit();
-    basketPage.clickCheckoutButton();
-
-    addressPage.clickAddNewAddress();
-
-    createAddressPage.submitNewAddress('test', 8989898989);
-    createAddressPage.verifyNewAddressCreated('test');
-
-    selectAddressPage.clickSelectAddressButton();
-    selectAddressPage.clickContinueButton();
-
-    deliveryMethodPage.selectOneDayDeliveryOption();
-    deliveryMethodPage.clickContinueButton();
-
-    paymentPage.submitCreditCard('test', 8989898989898989);
+  it('Search for Product and make order', () => {
+    findProductBySearchAndMakeOrder('Apple Pomace');
   })
 })

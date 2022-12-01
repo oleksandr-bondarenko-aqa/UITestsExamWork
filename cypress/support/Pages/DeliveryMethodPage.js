@@ -8,6 +8,7 @@ class DeliveryMethodPage {
     }
 
     selectOneDayDeliveryOption() {
+        cy.log('**Select delivery option**')
         this.getOneDayDeliveryButton().click();
     }
 
@@ -16,6 +17,7 @@ class DeliveryMethodPage {
     }
 
     clickContinueButton() {
+        cy.log('**Click Continue button**')
         this.getContinueButton().click();
     }
 }

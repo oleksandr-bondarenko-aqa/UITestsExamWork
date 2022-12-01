@@ -16,7 +16,7 @@ class PaymentPage {
     }
 
     getCardNumber() {
-        return cy.get('input[type="number"]');
+        return cy.contains('mat-form-field', 'Card Number');
     }
 
     getExpiryMonth() {
@@ -39,6 +39,10 @@ class PaymentPage {
         return cy.get('#submitButton');
     }
 
+    getContinueButton() {
+        return cy.get('span').contains('Continue');
+    }
+
     submitCreditCard(name, cardNumber) {
         cy.log('**Adding new credit card**')
         this.expandAddNewCard();
@@ -47,6 +51,21 @@ class PaymentPage {
         this.selectExpiryMonth();
         this.selectExpiryYear();
         this.getSubmitButton().click();
+    }
+
+    verifyCreditCardAdded() {
+        cy.log('**Verify that credit card is created**')
+        cy.get('simple-snack-bar').should('contain', 'Your card ending with 8989 has been saved for your convenience.');
+    }
+
+    getPaymentOption() {
+        return cy.get('mat-radio-button');
+    }
+
+    continueWithPaymentOption() {
+        cy.log('**Select payment option and continue**')
+        this.getPaymentOption().click();
+        this.getContinueButton().click();
     }
 
 }
