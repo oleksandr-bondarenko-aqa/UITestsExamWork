@@ -28,6 +28,11 @@ class LoginPage {
         cy.log('**Click "Log In" button**');
         this.getLoginButton().click();
     }
+
+    verifyUserLoggedIn() {
+        cy.log('**Verify that User is logged in**');
+        cy.get('span').should('contain', ' Your Basket');
+    }
 }
 
 export default new LoginPage();

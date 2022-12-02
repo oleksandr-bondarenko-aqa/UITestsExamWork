@@ -1,26 +1,27 @@
-import user from '../fixtures/user.json';
-import registrationPage from "../support/Pages/RegistrationPage";
-import {dismissWelcomePopup, verifySuccessfulRegistration, verifyUserLoggedIn} from "../support/helper";
-import loginPage from "../support/Pages/LoginPage";
+import {
+    addProductToBasketAndMakeOrder, fillAndSubmitFeedbackForm,
+    findProductBySearchAndMakeOrder, registerNewUser, registerNewUserAndLogin,
+} from "../support/helper";
 
-describe('UI tests exam task', () => {
-  it('Register User', () => {
-    registrationPage.visit();
 
-    dismissWelcomePopup();
+describe('FE part: UI tests', () => {
+    it('Register User', () => {
+        registerNewUser();
+    });
 
-    registrationPage.submitRegistrationForm(user.generatedEmail, user.password);
+    it('Login with generated User', () => {
+        registerNewUserAndLogin();
+    });
 
-    verifySuccessfulRegistration();
-  })
+    it('Add Product to basket and make order', () => {
+        addProductToBasketAndMakeOrder('Carrot Juice (1000ml)');
+    });
 
-  it('Login User', () => {
-    loginPage.visit();
+    it('Search for Product and make order', () => {
+        findProductBySearchAndMakeOrder('Apple Pomace');
+    });
 
-    dismissWelcomePopup();
-
-    loginPage.submitLoginForm(user.email, user.password);
-
-    verifyUserLoggedIn();
-  })
-})
+    it('Submit Feedback form', () => {
+        fillAndSubmitFeedbackForm();
+    });
+});

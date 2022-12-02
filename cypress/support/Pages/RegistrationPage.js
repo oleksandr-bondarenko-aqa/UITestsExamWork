@@ -36,10 +36,10 @@ class RegistrationPage {
     }
 
     submitRegistrationForm(email, password) {
-        user.generatedEmail = generateRandomEmail();
+        user.email = generateRandomEmail();
 
         cy.log('**Input Email**');
-        this.getEmail().type(user.generatedEmail);
+        this.getEmail().type(user.email);
 
         cy.log('**Input Password**');
         this.getPassword().type(user.password);
@@ -56,6 +56,11 @@ class RegistrationPage {
 
         cy.log('**Click Register button**');
         this.getRegisterButton().click();
+    }
+
+    verifySuccessfulRegistration() {
+        cy.log('**Verify successful registration**');
+        cy.get('h1').should('contain', 'Login');
     }
 }
 
