@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "cypress": "^11.2.0"
+    "cypress": "^11.2.0",
+    "mathjs": "^11.4.0"
   }
 }

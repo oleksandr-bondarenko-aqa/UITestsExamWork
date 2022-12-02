@@ -9,6 +9,7 @@ import selectAddressPage from "./Pages/SelectAddressPage";
 import deliveryMethodPage from "./Pages/DeliveryMethodPage";
 import paymentPage from "./Pages/PaymentPage";
 import orderSummaryPage from "./Pages/OrderSummaryPage";
+import contactsPage from "./Pages/ContactsPage";
 
 export function generateRandomEmail() {
     const randomValue = Date.now()
@@ -20,6 +21,13 @@ export function dismissWelcomePopup() {
     cy.get('[aria-label="Close Welcome Banner"]', {timeout: 10000})
         .should('be.visible')
         .click();
+}
+
+export function registerNewUser() {
+    registrationPage.visit();
+    dismissWelcomePopup();
+    registrationPage.submitRegistrationForm(user.email, user.password);
+    registrationPage.verifySuccessfulRegistration();
 }
 
 export function registerNewUserAndLogin() {
@@ -72,4 +80,14 @@ export function findProductBySearchAndMakeOrder(productName) {
     mainPage.verifyProductAddedToBasket(productName);
 
     checkoutProductInBasket();
+}
+
+export function fillAndSubmitFeedbackForm() {
+    contactsPage.visit();
+    dismissWelcomePopup();
+    contactsPage.inputComment('test');
+    contactsPage.moveRatingSlider();
+    contactsPage.resolveAndInputCaptcha();
+    contactsPage.clickSubmitButton();
+    contactsPage.verifyFeedbackFormSubmitted();
 }
